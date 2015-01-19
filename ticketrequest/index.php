@@ -1,6 +1,5 @@
 <?php
 namespace ticketrequest;
-use ticketrequest\core\model;
 
 //include core\model\Customer::class;
 include '../ticketrequest/core/model/Database.php';
