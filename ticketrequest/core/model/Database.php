@@ -1,14 +1,8 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-include "../../config.php";
 
-
-
+namespace ticketrequest\core\model;
+include "config.php";
 /**
  * Description of Database
  *
@@ -20,9 +14,12 @@ class Database {
     private $db_user = ''; 
     private $db_pass = ''; 
     private $db_name = ''; 
+    public  $pdo = false;
     public static $con = false;
     
+    
     function __construct(){
+        
         $this->db_host = $config['database']['host'];
         $this->db_user = $config['database']['username'];
         $this->db_pass = $config['database']['password'];
@@ -30,29 +27,27 @@ class Database {
     }
     
     public function connect()   {
-        if(!$this->con)
+        if(!self::$con)
         {
-            $myconn = mysql_connect($this->db_host,$this->db_user,$this->db_pass);
-            if($myconn)
-            {
-                $seldb = mysql_select_db($this->db_name,$myconn);
-                if($seldb)
-                {
-                    $this->con = true; 
-                    return true; 
-                } else
-                {
-                    return false; 
-                }
-            } else
-            {
-                return false; 
+            try {
+                $this->pdo = new PDO("mysql:host=$this->db_host;dbname=".$this->db_name, $this->db_user, $this->db_pass);
+                var_dump($this->pdo );
+                return self::$con = true;
             }
-        } else
-        {
-            return true; 
+            catch(PDOException $e)
+            {
+                echo $e->getMessage();
+            }
+        } 
+        else{
+            return false; 
         }
     }
-
+    
+    public function disconnect() {
+        self::$con = false;
+    }
+    
+    
 }
 

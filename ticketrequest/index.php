@@ -1,6 +1,11 @@
 <?php
-include "./core/model/Database.php";
+namespace ticketrequest;
+use ticketrequest\core\model;
 
+//include core\model\Customer::class;
+include '../ticketrequest/core/model/Database.php';
 
-$db = new Database();
-echo $db->connect();
+/*$pr = new Customer('mouad','tribak','mail@gmail.com');
+$pr->add();
+*/
+$db =  new  Database(); 
