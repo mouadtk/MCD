@@ -2,12 +2,13 @@
 
 
 namespace ticketrequest\core\model;
-include "config.php";
+//include "../config.php";
 /**
  * Description of Database
  *
  * @author tmouad
  */
+
 class Database {
     
     private $db_host = ''; 
@@ -20,18 +21,21 @@ class Database {
     
     function __construct(){
         
-        $this->db_host = $config['database']['host'];
-        $this->db_user = $config['database']['username'];
-        $this->db_pass = $config['database']['password'];
-        $this->db_name = $config['database']['dbname'];
+        $this->db_host = "localhost";
+        $this->db_user = "root";
+        $this->db_pass = "";
+        $this->db_name = "ebook";       
+//        $this->db_host = $config['database']['host'];
+//        $this->db_user = $config['database']['username'];
+//        $this->db_pass = $config['database']['password'];
+//        $this->db_name = $config['database']['dbname'];
     }
     
     public function connect()   {
         if(!self::$con)
         {
             try {
-                $this->pdo = new PDO("mysql:host=$this->db_host;dbname=".$this->db_name, $this->db_user, $this->db_pass);
-                var_dump($this->pdo );
+                $this->pdo = new \PDO("mysql:host=$this->db_host;dbname=".$this->db_name, $this->db_user, $this->db_pass);
                 return self::$con = true;
             }
             catch(PDOException $e)
